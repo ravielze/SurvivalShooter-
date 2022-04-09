@@ -1,20 +1,30 @@
 ﻿using UnityEngine;
+using System;
+using UnityEngine.UI;
 
 public class PlayerShooting : MonoBehaviour
 {
-    public int damagePerShot = 20;                  
-    public float timeBetweenBullets = 0.15f;        
-    public float range = 100f;                      
+    public int damagePerShot = 20;
+    public float timeBetweenBullets = 0.15f;
+    public float range = 100f;
+    public Slider strengthSlider;
+    public int maxDamagePerShot = 150;
 
-    float timer;                                    
-    Ray shootRay = new Ray();                                   
-    RaycastHit shootHit;                            
-    int shootableMask;                             
-    ParticleSystem gunParticles;                    
-    LineRenderer gunLine;                           
-    AudioSource gunAudio;                           
-    Light gunLight;                                 
-    float effectsDisplayTime = 0.2f;                
+    float timer;
+    Ray shootRay = new Ray();
+    RaycastHit shootHit;
+    int shootableMask;
+    ParticleSystem gunParticles;
+    LineRenderer gunLine;
+    AudioSource gunAudio;
+    Light gunLight;
+    float effectsDisplayTime = 0.2f;
+
+    public void AddDamage(int amount)
+    {
+        damagePerShot = Math.Min(damagePerShot + amount, maxDamagePerShot);
+        strengthSlider.value = damagePerShot;
+    }
 
     void Awake()
     {
@@ -23,6 +33,12 @@ public class PlayerShooting : MonoBehaviour
         gunLine = GetComponent<LineRenderer>();
         gunAudio = GetComponent<AudioSource>();
         gunLight = GetComponent<Light>();
+
+        strengthSlider.onValueChanged.AddListener(delegate { onSliderChanged(); });
+
+        strengthSlider.minValue = damagePerShot - 10;
+        strengthSlider.maxValue = maxDamagePerShot;
+        strengthSlider.value = damagePerShot;
     }
 
     void Update()
@@ -38,6 +54,12 @@ public class PlayerShooting : MonoBehaviour
         {
             DisableEffects();
         }
+    }
+
+    public void onSliderChanged()
+    {
+        Text txt = (Text)strengthSlider.GetComponentsInChildren<Text>()[0];
+        txt.text = $"Strength - {damagePerShot}/{maxDamagePerShot}";
     }
 
     public void DisableEffects()

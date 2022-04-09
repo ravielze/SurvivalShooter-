@@ -1,13 +1,23 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 6f;
+    public float speed = 5f;
     Vector3 movement;
     Animator anim;
     Rigidbody playerRigidbody;
     int floorMask;
     float camRayLength = 100f;
+    public Slider speedSlider;
+    public float maxSpeed = 10f;
+
+    public void IncreaseSpeed(float amount)
+    {
+        speed = Math.Min(speed + amount, maxSpeed);
+        speedSlider.value = speed;
+    }
 
     private void Awake()
     {
@@ -19,6 +29,18 @@ public class PlayerMovement : MonoBehaviour
 
         //Mendapatkan komponen Rigidbody
         playerRigidbody = GetComponent<Rigidbody>();
+
+        speedSlider.onValueChanged.AddListener(delegate { onSliderChanged(); });
+
+        speedSlider.minValue = speed - 1.0f;
+        speedSlider.maxValue = maxSpeed;
+        speedSlider.value = speed;
+    }
+
+    public void onSliderChanged()
+    {
+        Text txt = (Text)speedSlider.GetComponentsInChildren<Text>()[0];
+        txt.text = $"Speed - {speed:0.0}/{maxSpeed:0.0}";
     }
 
     private void FixedUpdate()

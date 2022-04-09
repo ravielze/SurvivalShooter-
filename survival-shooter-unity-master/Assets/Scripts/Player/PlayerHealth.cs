@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public int startingHealth = 100;
+    public int maxHealth = 100;
     public int currentHealth;
     public Slider healthSlider;
     public Image damageImage;
@@ -32,8 +34,25 @@ public class PlayerHealth : MonoBehaviour
 
         playerShooting = GetComponentInChildren<PlayerShooting>();
         currentHealth = startingHealth;
+
+        healthSlider.onValueChanged.AddListener(delegate { onSliderChanged(); });
+
+        healthSlider.minValue = 0;
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = currentHealth;
     }
 
+    public void Heal(int amount)
+    {
+        currentHealth = Math.Min(currentHealth + amount, maxHealth);
+        healthSlider.value = currentHealth;
+    }
+
+    public void onSliderChanged()
+    {
+        Text txt = (Text)healthSlider.GetComponentsInChildren<Text>()[0];
+        txt.text = $"Health - {currentHealth}/{maxHealth}";
+    }
 
     void Update()
     {
@@ -56,7 +75,7 @@ public class PlayerHealth : MonoBehaviour
     {
         damaged = true;
 
-        currentHealth -= amount;
+        currentHealth = Math.Max(currentHealth - amount, 0);
 
         healthSlider.value = currentHealth;
 
