@@ -20,6 +20,6 @@ public class ScoreboardManager : MonoBehaviour
 
     public void AddScore(Score score)
     {
-        scoreData.Add(score);
+        scoreData.scores.Add(score);
     }
 }
