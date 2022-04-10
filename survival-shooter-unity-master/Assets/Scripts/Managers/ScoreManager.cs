@@ -19,7 +19,7 @@ public class ScoreManager : MonoBehaviour
 
     public static int TimeSurvived()
     {
-        return time;
+        return (int)time;
     }
 
     void Update()
