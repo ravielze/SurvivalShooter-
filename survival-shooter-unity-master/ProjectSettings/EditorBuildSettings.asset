@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: eb973150b4953754aa3fd527dae97f59
+  - enabled: 1
+    path: Assets/Scenes/WaveMode.unity
+    guid: d942378693309c44c819b64235981f20
   m_configObjects: {}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     public PlayerHealth playerHealth;
     // public GameObject enemy;
     public int spawnEnemy;
-    private int enemySpawned = 0;
+    public int enemySpawned = 0;
     public float spawnTime = 3f;
     public Transform[] spawnPoints;
 
@@ -20,18 +21,19 @@ public class EnemyManager : MonoBehaviour
     public GameObject ZomBear;
     public GameObject Zombunny;
     public GameObject Hellephant;
+    public GameObject spider;
 
-    public int[,] mtx_enemy = new int[10, 3] {
-        {1,0,0},
-        {2,1,0},
-        {3,3,0},
-        {3,2,1},
-        {4,3,1},
-        {4,5,2},
-        {6,5,3},
-        {6,6,4},
-        {8,8,6},
-        {8,8,8},
+    public int[,] mtx_enemy = new int[10, 4] {
+        {1,1,0,0},
+        {2,1,1,0},
+        {3,3,2,1},
+        {4,3,3,0},
+        {5,5,4,0},
+        {6,6,4,2},
+        {6,6,6,0},
+        {6,6,4,0},
+        {8,8,6,3},
+        {8,8,8,0},
     };
 
     void Start()
