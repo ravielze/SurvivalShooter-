@@ -8,6 +8,7 @@ TagManager:
   - Floor
   - Orb
   - PlayerGun
+  - Spawner
   layers:
   - Default
   - TransparentFX
