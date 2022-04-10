@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public void PlayGame(){
-        SceneManager.LoadScene("Level_01");
+        SceneManager.LoadScene("WaveMode");
     }
     public void QuitGame(){
         Application.Quit();

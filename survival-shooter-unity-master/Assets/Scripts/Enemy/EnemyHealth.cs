@@ -65,8 +65,7 @@ public class EnemyHealth : MonoBehaviour
 
     void Death()
     {
-        spawn.enemySpawned--;
-        Debug.Log(spawn.enemySpawned);
+        spawn.EnemyDeath();
         isDead = true;
 
         capsuleCollider.isTrigger = true;
