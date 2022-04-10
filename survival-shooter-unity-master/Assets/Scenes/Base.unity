@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 1592a49ea03c04944891f2ac1f4638d0, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: c572555385876634494d99bb3e69ba3b, type: 2}
 --- !u!1 &7785514
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,7 +862,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 33458251}
   spawnEnemy: 2
-  enemySpawned: 0
   spawnTime: 5
   spawnPoints:
   - {fileID: 36326048}
@@ -7643,7 +7642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 409160, guid: ad67cddd729fb4342be2063a3f5ad7cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -4.19
       objectReference: {fileID: 0}
     - target: {fileID: 409160, guid: ad67cddd729fb4342be2063a3f5ad7cc, type: 3}
       propertyPath: m_LocalPosition.z

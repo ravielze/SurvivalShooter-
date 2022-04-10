@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    private int waveNumber = 0;
+    private static int waveNumber = 0;
 
 
     public PlayerHealth playerHealth;
@@ -21,7 +21,7 @@ public class EnemyManager : MonoBehaviour
     public GameObject Zombunny;
     public GameObject Hellephant;
 
-    public int[,] mtx_enemy = new int[10,3] {
+    public int[,] mtx_enemy = new int[10, 3] {
         {1,0,0},
         {2,1,0},
         {3,3,0},
@@ -34,22 +34,31 @@ public class EnemyManager : MonoBehaviour
         {8,8,8},
     };
 
-    void Start ()
+    void Start()
     {
         StartWave();
         StartCoroutine(checkWave());
     }
 
-    public int EnemiesSpawned() {
+    public int EnemiesSpawned()
+    {
         return enemySpawned;
     }
 
-    public void EnemyDeath() {
+    public static int Wave()
+    {
+        return waveNumber;
+    }
+
+    public void EnemyDeath()
+    {
         enemySpawned--;
     }
 
-    private void SpawnEntities(GameObject obj, int count) {
-        if (count < 0) {
+    private void SpawnEntities(GameObject obj, int count)
+    {
+        if (count < 0)
+        {
             return;
         }
         enemySpawned += count;
@@ -67,36 +76,46 @@ public class EnemyManager : MonoBehaviour
         {
             return;
         }
-        if (waveNumber > 10){
-            int num_above = (waveNumber - 10) + 1 ;
-            SpawnEntities(Zombunny, mtx_enemy[9,0] * num_above);
-            SpawnEntities(ZomBear, mtx_enemy[9,1] * num_above);
-            SpawnEntities(Hellephant, mtx_enemy[9,2] * num_above);
-        }else{
-            SpawnEntities(Zombunny, mtx_enemy[waveNumber-1,0]);
-            SpawnEntities(ZomBear, mtx_enemy[waveNumber-1,1]);
-            SpawnEntities(Hellephant, mtx_enemy[waveNumber-1,2]);
+        if (waveNumber > 10)
+        {
+            int num_above = (waveNumber - 10) + 1;
+            SpawnEntities(Zombunny, mtx_enemy[9, 0] * num_above);
+            SpawnEntities(ZomBear, mtx_enemy[9, 1] * num_above);
+            SpawnEntities(Hellephant, mtx_enemy[9, 2] * num_above);
         }
-        
+        else
+        {
+            SpawnEntities(Zombunny, mtx_enemy[waveNumber - 1, 0]);
+            SpawnEntities(ZomBear, mtx_enemy[waveNumber - 1, 1]);
+            SpawnEntities(Hellephant, mtx_enemy[waveNumber - 1, 2]);
+        }
+
     }
-    void StartWave(){
+    void StartWave()
+    {
         waveNumber = 1;
         Spawn();
-        
+
     }
-    public void NextWave(){
+    public void NextWave()
+    {
         waveNumber++;
         Spawn();
     }
-    public IEnumerator checkWave(){
-        while (true){
-            if (enemySpawned == 0){
+    public IEnumerator checkWave()
+    {
+        while (true)
+        {
+            if (enemySpawned == 0)
+            {
                 NextWave();
-            }else{
+            }
+            else
+            {
                 yield return new WaitForSeconds(1);
             }
         }
-    } 
+    }
 }
 
 
