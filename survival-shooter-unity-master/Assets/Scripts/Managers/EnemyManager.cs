@@ -96,6 +96,7 @@ public class EnemyManager : MonoBehaviour
     void StartWave()
     {
         waveNumber = 1;
+        enemySpawned = 0;
         Spawn();
 
     }

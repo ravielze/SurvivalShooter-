@@ -15,6 +15,7 @@ public class ScoreManager : MonoBehaviour
     {
         text = GetComponent<Text>();
         score = 0;
+        time = 0;
     }
 
     public static int TimeSurvived()
