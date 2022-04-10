@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     public PlayerHealth playerHealth;
     // public GameObject enemy;
     public int spawnEnemy;
-    private int enemySpawned = 0;
+    public int enemySpawned = 0;
     public float spawnTime = 3f;
     public Transform[] spawnPoints;
 
@@ -20,18 +21,20 @@ public class EnemyManager : MonoBehaviour
     public GameObject ZomBear;
     public GameObject Zombunny;
     public GameObject Hellephant;
+    public GameObject spider;
+    public Text waveNumberr;
 
-    public int[,] mtx_enemy = new int[10,3] {
-        {1,0,0},
-        {2,1,0},
-        {3,3,0},
-        {3,2,1},
-        {4,3,1},
-        {4,5,2},
-        {6,5,3},
-        {6,6,4},
-        {8,8,6},
-        {8,8,8},
+    public int[,] mtx_enemy = new int[10,4] {
+        {1,1,0,0},
+        {2,1,1,0},
+        {3,3,2,1},
+        {4,3,3,2},
+        {5,5,4,2},
+        {6,6,4,3},
+        {6,6,6,4},
+        {6,6,4,4},
+        {8,8,6,6},
+        {8,8,8,8},
     };
 
     void Start ()
@@ -40,28 +43,8 @@ public class EnemyManager : MonoBehaviour
         StartCoroutine(checkWave());
     }
 
-    public int EnemiesSpawned() {
-        return enemySpawned;
-    }
 
-    public void EnemyDeath() {
-        enemySpawned--;
-    }
-
-    private void SpawnEntities(GameObject obj, int count) {
-        if (count < 0) {
-            return;
-        }
-        enemySpawned += count;
-        for (int i = 0; i < count; i++)
-        {
-            int spawnPointIndex = Random.Range(0, spawnPoints.Length);
-            Instantiate(obj, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-        }
-    }
-
-
-    void Spawn()
+    void Spawn ()
     {
         if (playerHealth.currentHealth <= 0f)
         {
@@ -69,30 +52,84 @@ public class EnemyManager : MonoBehaviour
         }
         if (waveNumber > 10){
             int num_above = (waveNumber - 10) + 1 ;
-            SpawnEntities(Zombunny, mtx_enemy[9,0] * num_above);
-            SpawnEntities(ZomBear, mtx_enemy[9,1] * num_above);
-            SpawnEntities(Hellephant, mtx_enemy[9,2] * num_above);
+            // Menduplikasi enemy bunny
+            for (int i = 0; i < mtx_enemy[9,0] * num_above; i++){
+                int spawnPointIndex = Random.Range (0, spawnPoints.Length);
+                enemySpawned++;
+                Instantiate(Zombunny, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+            }
+            // Menduplikasi enemy bear
+            for (int i = 0; i < mtx_enemy[9,1] * num_above; i++){
+                int spawnPointIndex = Random.Range (0, spawnPoints.Length);
+                enemySpawned++;
+                Instantiate(ZomBear, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+            }
+            // Menduplikasi enemy hellephant
+            for (int i = 0; i < mtx_enemy[9,2] * num_above; i++){
+                int spawnPointIndex = Random.Range (0, spawnPoints.Length);
+                enemySpawned++;
+                Instantiate(Hellephant, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+            }
+            // Menduplikasi enemy spider
+            for (int i = 0; i < mtx_enemy[9,3] * num_above; i++){
+                int spawnPointIndex = Random.Range (0, spawnPoints.Length);
+                enemySpawned++;
+                Instantiate(spider, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+            }
         }else{
-            SpawnEntities(Zombunny, mtx_enemy[waveNumber-1,0]);
-            SpawnEntities(ZomBear, mtx_enemy[waveNumber-1,1]);
-            SpawnEntities(Hellephant, mtx_enemy[waveNumber-1,2]);
+            // Menduplikasi enemy bunny
+            for (int i = 0; i < mtx_enemy[waveNumber-1,0]; i++){
+                int spawnPointIndex = Random.Range (0, spawnPoints.Length);
+                enemySpawned++;
+                Instantiate(Zombunny, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+            }
+            // Menduplikasi enemy bear
+            for (int i = 0; i < mtx_enemy[waveNumber-1,1]; i++){
+                int spawnPointIndex = Random.Range (0, spawnPoints.Length);
+                enemySpawned++;
+                Instantiate(ZomBear, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+            }
+            // Menduplikasi enemy hellephant
+            for (int i = 0; i < mtx_enemy[waveNumber-1,2]; i++){
+                int spawnPointIndex = Random.Range (0, spawnPoints.Length);
+                enemySpawned++;
+                Instantiate(Hellephant, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+            }
+            // Menduplikasi enemy spider
+            for (int i = 0; i < mtx_enemy[waveNumber-1,3]; i++){
+                int spawnPointIndex = Random.Range (0, spawnPoints.Length);
+                enemySpawned++;
+                Instantiate(spider, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+            }
         }
         
     }
     void StartWave(){
+        // Debug.Log(mtx_enemy[0,0]);
+        // Debug.Log(mtx_enemy[0,1]);
+        // Debug.Log(mtx_enemy[0,2]);
+        // Debug.Log(mtx_enemy[0,3]);
         waveNumber = 1;
+        waveNumberr.text = waveNumber.ToString();
         Spawn();
         
     }
     public void NextWave(){
         waveNumber++;
+        waveNumberr.text = waveNumber.ToString();
+        // Debug.Log(mtx_enemy[waveNumber-1,0]);
+        // Debug.Log(mtx_enemy[waveNumber-1,1]);
+        // Debug.Log(mtx_enemy[waveNumber-1,2]);
+        // Debug.Log(mtx_enemy[waveNumber-1,3]);
         Spawn();
     }
     public IEnumerator checkWave(){
-        while (true){
+        while ( true ){
             if (enemySpawned == 0){
+                Debug.Log("nextwave");
                 NextWave();
             }else{
+                Debug.Log("wait");
                 yield return new WaitForSeconds(1);
             }
         }
