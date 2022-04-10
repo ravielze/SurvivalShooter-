@@ -16,6 +16,8 @@ public class EnemyHealth : MonoBehaviour
     bool isDead;
     bool isSinking;
 
+    EnemyManager spawn;
+
 
     void Awake()
     {
@@ -27,6 +29,8 @@ public class EnemyHealth : MonoBehaviour
 
         // Set current health
         currentHealth = startingHealth;
+
+        spawn = GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemyManager>();
     }
 
 
@@ -61,6 +65,8 @@ public class EnemyHealth : MonoBehaviour
 
     void Death()
     {
+        spawn.enemySpawned--;
+        Debug.Log(spawn.enemySpawned);
         isDead = true;
 
         capsuleCollider.isTrigger = true;
@@ -69,6 +75,7 @@ public class EnemyHealth : MonoBehaviour
 
         enemyAudio.clip = deathClip;
         enemyAudio.Play();
+        
     }
 
 
