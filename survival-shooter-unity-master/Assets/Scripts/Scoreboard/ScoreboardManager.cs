@@ -10,9 +10,10 @@ public class ScoreboardManager : MonoBehaviour
 
     void Awake()
     {
-/*       var json = PlayerPrefs.GetString("scores", "{}");
-       scoreData = JsonUtility.FromJson<ScoreData>(json);*/
-        scoreData = new ScoreData();
+       scoreData = new ScoreData();
+       var json = PlayerPrefs.GetString("scores", "{}");
+       scoreData = JsonUtility.FromJson<ScoreData>(json);
+
     }
 
     public IEnumerable<Score> GetScores()
@@ -25,7 +26,7 @@ public class ScoreboardManager : MonoBehaviour
         scoreData.scores.Add(score);
     }
 
-/*    private void OnDestroy()
+   private void OnDestroy()
     {
         SaveScore();
     }
@@ -33,7 +34,8 @@ public class ScoreboardManager : MonoBehaviour
     public void SaveScore()
     {
         var json = JsonUtility.ToJson(scoreData);
+        Debug.Log(json);
         PlayerPrefs.SetString("scores", json);
 
-    }*/
+    }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Score : MonoBehaviour
+public class Score
 {
     public string name;
     public float score;

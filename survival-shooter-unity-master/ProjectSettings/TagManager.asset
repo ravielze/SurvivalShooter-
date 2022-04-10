@@ -8,6 +8,7 @@ TagManager:
   - Floor
   - Orb
   - PlayerGun
+  - ScoreManager
   layers:
   - Default
   - TransparentFX

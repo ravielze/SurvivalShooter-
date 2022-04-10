@@ -17,6 +17,7 @@ public class PlayerHealth : MonoBehaviour
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 
 
+
     Animator anim;
     AudioSource playerAudio;
     PlayerMovement playerMovement;
@@ -101,7 +102,12 @@ public class PlayerHealth : MonoBehaviour
 
         playerMovement.enabled = false;
         playerShooting.enabled = false;
-    }
+
+        GameObject scoreboard = GameObject.FindGameObjectsWithTag("ScoreManager")[0];
+        ScoreboardManager scoreboardManager = scoreboard.GetComponent<ScoreboardManager>();
+        scoreboardManager.AddScore(new Score("Tes", ScoreManager.score));
+
+}
 
     public void RestartLevel()
     {
